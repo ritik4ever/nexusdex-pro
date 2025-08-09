@@ -7,8 +7,8 @@ import { Providers } from "./providers"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "DeFi Trading Platform",
-  description: "Modern DeFi trading platform with advanced features",
+  title: "NexusDEX Pro - Advanced DeFi Trading Platform",
+  description: "Professional DeFi trading platform with real-time market data and advanced features",
     generator: 'v0.dev'
 }
 

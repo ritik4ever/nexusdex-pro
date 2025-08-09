@@ -4,27 +4,49 @@ import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { usePortfolio } from "@/hooks/use-portfolio"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Wallet } from "lucide-react"
 
 export function TokenBalances() {
   const { data: portfolio, isLoading } = usePortfolio()
 
+  // Mock data for demo
+  const mockBalances = [
+    {
+      token: { address: "0x1", symbol: "BTC", name: "Bitcoin", logoURI: "/crypto-btc.png" },
+      balance: "0.25",
+      balanceUSD: 10800,
+    },
+    {
+      token: { address: "0x2", symbol: "ETH", name: "Ethereum", logoURI: "/crypto-eth.png" },
+      balance: "2.5",
+      balanceUSD: 6625,
+    },
+    {
+      token: { address: "0x3", symbol: "OKB", name: "OKB Token", logoURI: "/okb-token.png" },
+      balance: "150",
+      balanceUSD: 7875,
+    },
+  ]
+
+  const balances = portfolio?.balances || mockBalances
+
   if (isLoading) {
     return (
-      <Card>
+      <Card className="glass-card border-white/10">
         <CardHeader>
-          <CardTitle>Token Balances</CardTitle>
+          <CardTitle className="text-2xl font-bold gradient-text">Token Balances</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="flex items-center space-x-3">
-              <Skeleton className="w-10 h-10 rounded-full" />
+              <Skeleton className="w-12 h-12 rounded-full bg-gray-600" />
               <div className="flex-1 space-y-1">
-                <Skeleton className="h-4 w-20" />
-                <Skeleton className="h-3 w-16" />
+                <Skeleton className="h-4 w-20 bg-gray-600" />
+                <Skeleton className="h-3 w-16 bg-gray-700" />
               </div>
               <div className="text-right space-y-1">
-                <Skeleton className="h-4 w-16" />
-                <Skeleton className="h-3 w-12" />
+                <Skeleton className="h-4 w-16 bg-gray-600" />
+                <Skeleton className="h-3 w-12 bg-gray-700" />
               </div>
             </div>
           ))}
@@ -34,39 +56,38 @@ export function TokenBalances() {
   }
 
   return (
-    <Card className="backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 border border-gray-200/20 dark:border-gray-700/20">
+    <Card className="glass-card border-white/10">
       <CardHeader>
-        <CardTitle>Token Balances</CardTitle>
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-xl bg-gradient-to-r from-green-500/20 to-blue-500/20">
+            <Wallet className="w-6 h-6 text-green-400" />
+          </div>
+          <CardTitle className="text-2xl font-bold gradient-text">Token Balances</CardTitle>
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {portfolio?.balances.map((balance, index) => (
+        {balances.map((balance, index) => (
           <motion.div
             key={balance.token.address}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50"
+            className="glass-card p-4 group hover:scale-[1.02] transition-all duration-300"
           >
-            <div className="flex items-center space-x-3">
-              {balance.token.logoURI ? (
-                <img
-                  src={balance.token.logoURI || "/placeholder.svg"}
-                  alt={balance.token.symbol}
-                  className="w-10 h-10 rounded-full"
-                />
-              ) : (
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
                   {balance.token.symbol.charAt(0)}
                 </div>
-              )}
-              <div>
-                <div className="font-medium">{balance.token.symbol}</div>
-                <div className="text-sm text-gray-500">{balance.token.name}</div>
+                <div>
+                  <div className="font-bold text-white">{balance.token.symbol}</div>
+                  <div className="text-sm text-gray-400">{balance.token.name}</div>
+                </div>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="font-medium">{Number.parseFloat(balance.balance).toFixed(4)}</div>
-              <div className="text-sm text-gray-500">${balance.balanceUSD.toFixed(2)}</div>
+              <div className="text-right">
+                <div className="font-bold text-white">{Number.parseFloat(balance.balance).toFixed(4)}</div>
+                <div className="text-sm text-gray-400">${balance.balanceUSD.toFixed(2)}</div>
+              </div>
             </div>
           </motion.div>
         ))}

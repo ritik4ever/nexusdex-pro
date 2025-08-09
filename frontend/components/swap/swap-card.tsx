@@ -22,20 +22,25 @@ export function SwapCard() {
   const mockBalance = fromToken?.symbol === "OKB" ? 150.5 : fromToken?.symbol === "ETH" ? 1.75 : 32.33
 
   return (
-    <Card className="w-full max-w-md mx-auto backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 border border-gray-200/20 dark:border-gray-700/20 shadow-2xl">
+    <Card className="w-full max-w-md mx-auto glass-card border-white/10">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-xl font-semibold">Swap</CardTitle>
-          <Button variant="ghost" size="icon" onClick={() => setShowSettings(!showSettings)} className="rounded-full">
+          <CardTitle className="text-2xl font-bold gradient-text">Token Swap</CardTitle>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setShowSettings(!showSettings)}
+            className="rounded-full hover:bg-white/10"
+          >
             <Settings className="h-5 w-5" />
           </Button>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-6">
         {showSettings && <SlippageSettings />}
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <EnhancedTokenInput
             label="From"
             token={fromToken}
@@ -52,9 +57,9 @@ export function SwapCard() {
                 variant="ghost"
                 size="icon"
                 onClick={swapTokens}
-                className="rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+                className="rounded-full bg-white/5 hover:bg-white/10 border border-white/20"
               >
-                <ArrowUpDown className="h-5 w-5" />
+                <ArrowUpDown className="h-6 w-6" />
               </Button>
             </motion.div>
           </div>
@@ -73,17 +78,17 @@ export function SwapCard() {
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
-            className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg space-y-2 text-sm"
+            className="glass-card p-4 space-y-3 text-sm"
           >
             <div className="flex justify-between">
-              <span className="text-gray-600 dark:text-gray-400">Price Impact</span>
-              <span className={quote.priceImpact > 5 ? "text-red-500" : "text-green-500"}>
+              <span className="text-gray-400">Price Impact</span>
+              <span className={quote.priceImpact > 5 ? "text-red-400" : "text-green-400"}>
                 {quote.priceImpact.toFixed(2)}%
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600 dark:text-gray-400">Gas Estimate</span>
-              <span>{quote.gasEstimate} OKB</span>
+              <span className="text-gray-400">Gas Estimate</span>
+              <span className="text-white">{quote.gasEstimate} OKB</span>
             </div>
           </motion.div>
         )}

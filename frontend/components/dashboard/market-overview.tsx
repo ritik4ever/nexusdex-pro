@@ -80,8 +80,9 @@ export function MarketOverview() {
                   </div>
 
                   <div
-                    className={`flex items-center gap-1 text-sm font-medium ${stat?.isPositive ? "text-green-400" : "text-red-400"
-                      }`}
+                    className={`flex items-center gap-1 text-sm font-medium ${
+                      stat?.isPositive ? "text-green-400" : "text-red-400"
+                    }`}
                     data-testid={`change-${stat?.title.toLowerCase()}`}
                   >
                     {stat?.isPositive ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}

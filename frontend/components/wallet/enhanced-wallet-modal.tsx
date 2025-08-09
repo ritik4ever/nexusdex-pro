@@ -98,8 +98,9 @@ export function EnhancedWalletModal({ isOpen, onClose, onConnect, isConnecting }
                   onClick={() => handleWalletClick(wallet)}
                   disabled={isConnecting}
                   variant="ghost"
-                  className={`w-full p-4 h-auto glass-card border border-white/10 hover:border-white/20 text-white ${wallet.isRecommended ? "border-primary/30 bg-primary/5" : ""
-                    }`}
+                  className={`w-full p-4 h-auto glass-card border border-white/10 hover:border-white/20 text-white ${
+                    wallet.isRecommended ? "border-primary/30 bg-primary/5" : ""
+                  }`}
                 >
                   <div className="flex items-center space-x-4 w-full">
                     <div className="flex items-center space-x-3 flex-1">

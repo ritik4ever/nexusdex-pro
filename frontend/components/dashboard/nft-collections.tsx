@@ -24,7 +24,6 @@ export function NFTCollections() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate loading NFT data with realistic fluctuations
     const loadNFTData = () => {
       const mockCollections: NFTCollection[] = [
         {
@@ -78,7 +77,7 @@ export function NFTCollections() {
     }
 
     loadNFTData()
-    const interval = setInterval(loadNFTData, 30000) // Update every 30 seconds
+    const interval = setInterval(loadNFTData, 30000)
 
     return () => clearInterval(interval)
   }, [])
@@ -100,28 +99,21 @@ export function NFTCollections() {
 
   if (isLoading) {
     return (
-      <Card className="premium-glass border-premium shadow-premium" data-testid="nft-collections">
+      <Card className="glass-card border-white/10">
         <CardHeader>
-          <CardTitle className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20">
-              <ImageIcon className="w-5 h-5 text-purple-400" />
-            </div>
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Top NFT Collections
-            </span>
-          </CardTitle>
+          <CardTitle className="text-3xl font-bold gradient-text">Top NFT Collections</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="animate-pulse flex items-center space-x-4 p-4 rounded-xl bg-white/5">
-              <div className="w-12 h-12 bg-gray-600 rounded-xl" />
+            <div key={i} className="animate-pulse flex items-center space-x-4 p-6 rounded-2xl bg-white/5">
+              <div className="w-12 h-12 bg-gray-600 rounded-2xl" />
               <div className="flex-1 space-y-2">
-                <div className="h-4 bg-gray-600 rounded w-3/4" />
-                <div className="h-3 bg-gray-700 rounded w-1/2" />
+                <div className="h-5 bg-gray-600 rounded w-3/4" />
+                <div className="h-4 bg-gray-700 rounded w-1/2" />
               </div>
               <div className="space-y-2">
-                <div className="h-4 bg-gray-600 rounded w-16" />
-                <div className="h-3 bg-gray-700 rounded w-12" />
+                <div className="h-5 bg-gray-600 rounded w-16" />
+                <div className="h-4 bg-gray-700 rounded w-12" />
               </div>
             </div>
           ))}
@@ -131,28 +123,29 @@ export function NFTCollections() {
   }
 
   return (
-    <Card className="premium-glass border-premium shadow-premium" data-testid="nft-collections">
-      <CardHeader className="pb-4">
+    <Card className="glass-card border-white/10">
+      <CardHeader className="pb-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20">
-              <ImageIcon className="w-5 h-5 text-purple-400" />
+          <div className="flex items-center gap-4">
+            <div className="p-3 rounded-2xl bg-gradient-to-r from-purple-500/20 to-pink-500/20">
+              <ImageIcon className="w-8 h-8 text-purple-400" />
             </div>
             <div>
-              <CardTitle className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Top NFT Collections
-              </CardTitle>
-              <div className="text-xs text-gray-400 mt-1">OpenSea • Real-time floor prices</div>
+              <CardTitle className="text-3xl font-bold gradient-text">Top NFT Collections</CardTitle>
+              <div className="text-gray-400 mt-2 flex items-center gap-2">
+                <Crown className="w-4 h-4" />
+                OpenSea • Real-time floor prices
+              </div>
             </div>
           </div>
           <Button
             size="sm"
             onClick={refreshData}
             variant="ghost"
-            className="text-xs hover:bg-white/10"
+            className="glass-card border-white/10 hover:border-purple-500/30 px-4 py-2"
             disabled={isLoading}
           >
-            <RefreshCw className={`w-3 h-3 mr-1 ${isLoading ? "animate-spin" : ""}`} />
+            <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
             Refresh
           </Button>
         </div>
@@ -165,77 +158,58 @@ export function NFTCollections() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="group relative overflow-hidden rounded-xl p-4 bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-            data-testid={`nft-collection-${collection.name.toLowerCase().replace(/\s+/g, "-")}`}
+            className="glass-card p-6 group hover:scale-[1.02] hover:border-purple-500/30 transition-all duration-300 cursor-pointer"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-            <div className="relative z-10 flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden">
-                    <ImageIcon className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden">
+                    <ImageIcon className="w-7 h-7 text-white" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-gray-800 rounded-full flex items-center justify-center text-xs font-bold text-gray-300">
+                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-black border border-white/20 rounded-full flex items-center justify-center text-xs font-bold text-gray-300">
                     {collection.rank}
                   </div>
                 </div>
 
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="font-semibold text-white"
-                      data-testid={`nft-name-${collection.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      {collection.name}
-                    </span>
+                  <div className="flex items-center gap-3">
+                    <span className="font-bold text-white text-lg">{collection.name}</span>
                     {collection.isVerified && (
-                      <Badge
-                        variant="secondary"
-                        className="text-xs px-1.5 py-0.5 bg-blue-500/20 text-blue-400 border-blue-500/30"
-                      >
+                      <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 px-2 py-1">
                         <Crown className="w-3 h-3 mr-1" />
                         Verified
                       </Badge>
                     )}
                     {Math.abs(collection.change24h) > 15 && (
-                      <Badge
-                        variant="destructive"
-                        className="text-xs px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-red-500"
-                      >
+                      <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white border-0 px-2 py-1">
                         <Zap className="w-3 h-3 mr-1" />
                         Trending
                       </Badge>
                     )}
                   </div>
-                  <div className="text-sm text-gray-400">
+                  <div className="text-gray-400 mt-1">
                     {collection.items.toLocaleString()} items • {collection.owners.toLocaleString()} owners
                   </div>
-                  <div className="text-xs text-gray-500">Vol: {collection.volume24h.toFixed(1)} ETH</div>
+                  <div className="text-sm text-gray-500 mt-1">Vol: {collection.volume24h.toFixed(1)} ETH</div>
                 </div>
               </div>
 
               <div className="text-right">
+                <div className="text-2xl font-bold text-white mb-2">{collection.floorPrice.toFixed(2)} ETH</div>
                 <div
-                  className="text-lg font-bold text-white"
-                  data-testid={`nft-floor-${collection.name.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  {collection.floorPrice.toFixed(2)} ETH
-                </div>
-                <div
-                  className={`flex items-center justify-end gap-1 text-sm font-semibold ${collection.change24h >= 0 ? "text-green-400" : "text-red-400"
-                    }`}
-                  data-testid={`nft-change-${collection.name.toLowerCase().replace(/\s+/g, "-")}`}
+                  className={`flex items-center justify-end gap-2 text-lg font-bold ${
+                    collection.change24h >= 0 ? "text-green-400" : "text-red-400"
+                  }`}
                 >
                   {collection.change24h >= 0 ? (
-                    <TrendingUp className="w-4 h-4" />
+                    <TrendingUp className="w-5 h-5" />
                   ) : (
-                    <TrendingDown className="w-4 h-4" />
+                    <TrendingDown className="w-5 h-5" />
                   )}
                   {collection.change24h >= 0 ? "+" : ""}
                   {collection.change24h.toFixed(1)}%
                 </div>
-                <div className="text-xs text-gray-500">${(collection.floorPrice * 2650).toFixed(0)} USD</div>
+                <div className="text-sm text-gray-500 mt-1">${(collection.floorPrice * 2650).toFixed(0)} USD</div>
               </div>
             </div>
           </motion.div>

@@ -9,17 +9,31 @@ import { Skeleton } from "@/components/ui/skeleton"
 export function PortfolioOverview() {
   const { data: portfolio, isLoading } = usePortfolio()
 
+  // Mock data for demo
+  const mockPortfolio = {
+    totalValue: 12547.89,
+    totalPnL: 234.56,
+    totalPnLPercentage: 1.91,
+    balances: [
+      { token: { symbol: "BTC", name: "Bitcoin" }, balance: "0.25", balanceUSD: 10800 },
+      { token: { symbol: "ETH", name: "Ethereum" }, balance: "2.5", balanceUSD: 6625 },
+      { token: { symbol: "OKB", name: "OKB Token" }, balance: "150", balanceUSD: 7875 },
+    ],
+  }
+
+  const portfolioData = portfolio || mockPortfolio
+
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {Array.from({ length: 3 }).map((_, i) => (
-          <Card key={i}>
+          <Card key={i} className="glass-card border-white/10">
             <CardHeader>
-              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-4 w-24 bg-gray-600" />
             </CardHeader>
             <CardContent>
-              <Skeleton className="h-8 w-32 mb-2" />
-              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-8 w-32 mb-2 bg-gray-600" />
+              <Skeleton className="h-4 w-20 bg-gray-700" />
             </CardContent>
           </Card>
         ))}
@@ -30,22 +44,25 @@ export function PortfolioOverview() {
   const stats = [
     {
       title: "Total Value",
-      value: `$${portfolio?.totalValue.toLocaleString() || "0"}`,
+      value: `$${portfolioData.totalValue.toLocaleString()}`,
       icon: DollarSign,
       change: null,
+      color: "text-cyan-400",
     },
     {
       title: "Total P&L",
-      value: `$${portfolio?.totalPnL.toLocaleString() || "0"}`,
-      icon: portfolio?.totalPnL >= 0 ? TrendingUp : TrendingDown,
-      change: `${portfolio?.totalPnLPercentage.toFixed(2) || "0"}%`,
-      positive: portfolio?.totalPnL >= 0,
+      value: `$${portfolioData.totalPnL.toLocaleString()}`,
+      icon: portfolioData.totalPnL >= 0 ? TrendingUp : TrendingDown,
+      change: `${portfolioData.totalPnLPercentage.toFixed(2)}%`,
+      positive: portfolioData.totalPnL >= 0,
+      color: portfolioData.totalPnL >= 0 ? "text-green-400" : "text-red-400",
     },
     {
       title: "Active Positions",
-      value: portfolio?.balances.length.toString() || "0",
+      value: portfolioData.balances.length.toString(),
       icon: Activity,
       change: null,
+      color: "text-purple-400",
     },
   ]
 
@@ -58,15 +75,15 @@ export function PortfolioOverview() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
         >
-          <Card className="backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 border border-gray-200/20 dark:border-gray-700/20">
+          <Card className="glass-card border-white/10 group hover:scale-105 transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">{stat.title}</CardTitle>
-              <stat.icon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+              <CardTitle className="text-sm font-medium text-gray-400">{stat.title}</CardTitle>
+              <stat.icon className={`h-6 w-6 ${stat.color}`} />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
+              <div className={`text-3xl font-bold ${stat.color}`}>{stat.value}</div>
               {stat.change && (
-                <p className={`text-xs ${stat.positive ? "text-green-600" : "text-red-600"}`}>
+                <p className={`text-sm mt-2 ${stat.positive ? "text-green-400" : "text-red-400"}`}>
                   {stat.positive ? "+" : ""}
                   {stat.change}
                 </p>

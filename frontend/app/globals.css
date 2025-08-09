@@ -3,58 +3,92 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 3.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 3.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 3.9%;
-  --primary: 0 0% 9%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 96.1%;
-  --secondary-foreground: 0 0% 9%;
-  --muted: 0 0% 96.1%;
-  --muted-foreground: 0 0% 45.1%;
-  --accent: 0 0% 96.1%;
-  --accent-foreground: 0 0% 9%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 89.8%;
-  --input: 0 0% 89.8%;
-  --ring: 0 0% 3.9%;
-  --chart-1: 12 76% 61%;
-  --chart-2: 173 58% 39%;
-  --chart-3: 197 37% 24%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
-  --radius: 0.5rem;
+  /* Light Theme - NexusDEX Pro */
+  --nexus-background: 248 250 252;
+  --nexus-foreground: 15 23 42;
+  --nexus-surface: 255 255 255;
+  --nexus-muted: 100 116 139;
+  --nexus-border: 226 232 240;
+
+  /* Primary Colors - Teal/Cyan */
+  --nexus-primary: 6 182 212;
+  --nexus-secondary: 14 165 233;
+  --nexus-accent: 34 197 94;
+
+  /* Status Colors */
+  --nexus-success: 34 197 94;
+  --nexus-error: 239 68 68;
+  --nexus-warning: 245 158 11;
+
+  /* Standard Variables */
+  --background: var(--nexus-background);
+  --foreground: var(--nexus-foreground);
+  --card: var(--nexus-surface);
+  --card-foreground: var(--nexus-foreground);
+  --popover: var(--nexus-surface);
+  --popover-foreground: var(--nexus-foreground);
+  --primary: var(--nexus-primary);
+  --primary-foreground: 255 255 255;
+  --secondary: 241 245 249;
+  --secondary-foreground: var(--nexus-foreground);
+  --muted: 248 250 252;
+  --muted-foreground: var(--nexus-muted);
+  --accent: 241 245 249;
+  --accent-foreground: var(--nexus-foreground);
+  --destructive: var(--nexus-error);
+  --destructive-foreground: 255 255 255;
+  --border: var(--nexus-border);
+  --input: var(--nexus-border);
+  --ring: var(--nexus-primary);
+  --radius: 0.75rem;
+
+  /* Custom Colors */
+  --cyan: 0 255 255;
+  --purple: 147 51 234;
+  --green: 34 197 94;
+  --red: 239 68 68;
+  --yellow: 245 158 11;
+  --blue: 59 130 246;
 }
 
 .dark {
-  --background: 0 0% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 0 0% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 0 0% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 0 0% 98%;
-  --primary-foreground: 0 0% 9%;
-  --secondary: 0 0% 14.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 14.9%;
-  --muted-foreground: 0 0% 63.9%;
-  --accent: 0 0% 14.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
-  --ring: 0 0% 83.1%;
-  --chart-1: 220 70% 50%;
-  --chart-2: 160 60% 45%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
+  /* Dark Theme - NexusDEX Pro */
+  --nexus-background: 2 6 23;
+  --nexus-foreground: 248 250 252;
+  --nexus-surface: 15 23 42;
+  --nexus-muted: 100 116 139;
+  --nexus-border: 30 41 59;
+
+  /* Primary Colors - Teal/Cyan (same as light) */
+  --nexus-primary: 6 182 212;
+  --nexus-secondary: 14 165 233;
+  --nexus-accent: 34 197 94;
+
+  /* Status Colors */
+  --nexus-success: 34 197 94;
+  --nexus-error: 239 68 68;
+  --nexus-warning: 245 158 11;
+
+  /* Standard Variables */
+  --background: var(--nexus-background);
+  --foreground: var(--nexus-foreground);
+  --card: var(--nexus-surface);
+  --card-foreground: var(--nexus-foreground);
+  --popover: var(--nexus-surface);
+  --popover-foreground: var(--nexus-foreground);
+  --primary: var(--nexus-primary);
+  --primary-foreground: 255 255 255;
+  --secondary: 30 41 59;
+  --secondary-foreground: var(--nexus-foreground);
+  --muted: 30 41 59;
+  --muted-foreground: var(--nexus-muted);
+  --accent: 30 41 59;
+  --accent-foreground: var(--nexus-foreground);
+  --destructive: var(--nexus-error);
+  --destructive-foreground: 255 255 255;
+  --border: var(--nexus-border);
+  --input: var(--nexus-border);
+  --ring: var(--nexus-primary);
 }
 
 @layer base {
@@ -63,161 +97,368 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-    min-height: 100vh;
+    background-color: hsl(var(--nexus-background));
+    color: hsl(var(--nexus-foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-/* Custom glassmorphism styles */
-.glass {
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(209, 213, 219, 0.3);
-}
-
-.dark .glass {
-  background-color: rgba(17, 24, 39, 0.75);
-  border: 1px solid rgba(75, 85, 99, 0.3);
-}
-
-.glass-card {
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dark .glass-card {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Premium Glassmorphism Styles */
-.premium-glass {
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.05) 50%,
-      rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-}
-
-.border-premium {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-}
-
-.shadow-premium {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-}
-
-/* OKX Wallet specific styling */
-.okx-gradient {
-  background: linear-gradient(135deg, #1890ff 0%, #722ed1 100%);
-}
-
-.okx-glow {
-  box-shadow: 0 0 20px rgba(24, 144, 255, 0.3);
-}
-
-/* Enhanced Animations */
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0px);
+@layer components {
+  /* NexusDEX Pro Components */
+  .nexus-glass {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: hsl(var(--nexus-surface) / 0.8);
+    border: 1px solid hsl(var(--nexus-border) / 0.5);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1), inset 0 1px 0 0
+      hsl(var(--nexus-foreground) / 0.05);
   }
 
-  50% {
-    transform: translateY(-10px);
+  .nexus-card {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: hsl(var(--nexus-surface) / 0.8);
+    border: 1px solid hsl(var(--nexus-border) / 0.5);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1), inset 0 1px 0 0
+      hsl(var(--nexus-foreground) / 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nexus-card:hover {
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1),
+      inset 0 1px 0 0 hsl(var(--nexus-foreground) / 0.05),
+      0 0 0 1px hsl(var(--nexus-primary) / 0.1);
+  }
+
+  /* Enhanced Buttons */
+  .nexus-button-primary {
+    background-color: hsl(var(--nexus-primary));
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  .nexus-button-primary:hover {
+    background-color: hsl(var(--nexus-primary) / 0.9);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  /* Professional Table Styles */
+  .nexus-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .nexus-table th {
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(var(--nexus-muted));
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid hsl(var(--nexus-border));
+  }
+
+  .nexus-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid hsl(var(--nexus-border));
+    color: hsl(var(--nexus-foreground));
+  }
+
+  .nexus-table tr:hover {
+    background-color: hsl(var(--nexus-surface) / 0.5);
+  }
+
+  /* New Components */
+  .glass-card {
+    @apply bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 4px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0
+      rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-card:hover {
+    @apply border-cyan-500/30;
+    box-shadow: 0 0 0 1px rgba(0, 255, 255, 0.2), 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 255, 0.1), inset
+      0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .premium-glass {
+    @apply bg-black/90 backdrop-blur-2xl border border-white/20 rounded-3xl;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .premium-glass:hover {
+    @apply border-cyan-400/40;
+    box-shadow: 0 0 0 1px rgba(0, 255, 255, 0.3), 0 12px 48px rgba(0, 0, 0, 0.95), 0 0 60px rgba(0, 255, 255, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .neon-border {
+    @apply border border-cyan-500/50;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  }
+
+  .neon-text {
+    @apply text-cyan-400;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-semibold px-6 py-3 rounded-xl transition-all duration-300;
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 6px 25px rgba(0, 255, 255, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    @apply bg-white/5 hover:bg-white/10 border border-white/20 hover:border-cyan-500/50 text-white px-6 py-3 rounded-xl transition-all duration-300;
+  }
+
+  .metric-card {
+    @apply glass-card p-6 text-center hover:scale-105 transition-all duration-300;
+  }
+
+  .metric-value {
+    @apply text-3xl font-bold mb-2;
+  }
+
+  .metric-label {
+    @apply text-sm text-gray-400 uppercase tracking-wider;
+  }
+
+  .swap-input {
+    @apply bg-black/60 border border-white/20 rounded-2xl p-6 backdrop-blur-xl;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .swap-input:focus-within {
+    @apply border-cyan-500/50;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 255, 0.1);
   }
 }
 
-@keyframes glow {
-
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+@layer utilities {
+  /* NexusDEX Pro Color Classes */
+  .text-nexus-foreground {
+    color: hsl(var(--nexus-foreground));
+  }
+  .text-nexus-muted {
+    color: hsl(var(--nexus-muted));
+  }
+  .text-nexus-primary {
+    color: hsl(var(--nexus-primary));
+  }
+  .text-nexus-secondary {
+    color: hsl(var(--nexus-secondary));
+  }
+  .text-nexus-accent {
+    color: hsl(var(--nexus-accent));
+  }
+  .text-nexus-success {
+    color: hsl(var(--nexus-success));
+  }
+  .text-nexus-error {
+    color: hsl(var(--nexus-error));
+  }
+  .text-nexus-warning {
+    color: hsl(var(--nexus-warning));
   }
 
-  50% {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  .bg-nexus-background {
+    background-color: hsl(var(--nexus-background));
+  }
+  .bg-nexus-surface {
+    background-color: hsl(var(--nexus-surface));
+  }
+  .bg-nexus-primary {
+    background-color: hsl(var(--nexus-primary));
+  }
+  .bg-nexus-primary\/10 {
+    background-color: hsl(var(--nexus-primary) / 0.1);
+  }
+  .bg-nexus-primary\/20 {
+    background-color: hsl(var(--nexus-primary) / 0.2);
+  }
+  .bg-nexus-primary\/90 {
+    background-color: hsl(var(--nexus-primary) / 0.9);
+  }
+  .bg-nexus-secondary {
+    background-color: hsl(var(--nexus-secondary));
+  }
+  .bg-nexus-secondary\/90 {
+    background-color: hsl(var(--nexus-secondary) / 0.9);
+  }
+  .bg-nexus-accent {
+    background-color: hsl(var(--nexus-accent));
+  }
+  .bg-nexus-success {
+    background-color: hsl(var(--nexus-success));
+  }
+  .bg-nexus-error {
+    background-color: hsl(var(--nexus-error));
+  }
+  .bg-nexus-warning {
+    background-color: hsl(var(--nexus-warning));
+  }
+
+  .hover\:bg-nexus-primary\/10:hover {
+    background-color: hsl(var(--nexus-primary) / 0.1);
+  }
+  .hover\:bg-nexus-primary\/90:hover {
+    background-color: hsl(var(--nexus-primary) / 0.9);
+  }
+  .hover\:bg-nexus-secondary\/90:hover {
+    background-color: hsl(var(--nexus-secondary) / 0.9);
+  }
+  .hover\:bg-nexus-muted\/5:hover {
+    background-color: hsl(var(--nexus-muted) / 0.05);
+  }
+  .hover\:bg-nexus-muted\/10:hover {
+    background-color: hsl(var(--nexus-muted) / 0.1);
+  }
+
+  .border-nexus-border {
+    border-color: hsl(var(--nexus-border));
+  }
+  .border-nexus-border\/20 {
+    border-color: hsl(var(--nexus-border) / 0.2);
+  }
+  .border-nexus-border\/40 {
+    border-color: hsl(var(--nexus-border) / 0.4);
+  }
+  .border-nexus-primary {
+    border-color: hsl(var(--nexus-primary));
+  }
+  .border-nexus-primary\/20 {
+    border-color: hsl(var(--nexus-primary) / 0.2);
+  }
+  .border-nexus-primary\/30 {
+    border-color: hsl(var(--nexus-primary) / 0.3);
+  }
+  .border-nexus-secondary {
+    border-color: hsl(var(--nexus-secondary));
+  }
+  .border-nexus-accent {
+    border-color: hsl(var(--nexus-accent));
+  }
+  .border-nexus-success {
+    border-color: hsl(var(--nexus-success));
+  }
+  .border-nexus-success\/30 {
+    border-color: hsl(var(--nexus-success) / 0.3);
+  }
+  .border-nexus-error {
+    border-color: hsl(var(--nexus-error));
+  }
+  .border-nexus-warning {
+    border-color: hsl(var(--nexus-warning));
+  }
+
+  .hover\:border-nexus-border\/40:hover {
+    border-color: hsl(var(--nexus-border) / 0.4);
+  }
+  .hover\:border-nexus-primary\/30:hover {
+    border-color: hsl(var(--nexus-primary) / 0.3);
+  }
+
+  .hover\:text-nexus-foreground:hover {
+    color: hsl(var(--nexus-foreground));
+  }
+
+  .hover\:shadow-lg:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  .shadow-nexus-primary\/10 {
+    box-shadow: 0 10px 15px -3px hsl(var(--nexus-primary) / 0.1);
+  }
+
+  /* New Utilities */
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
+    to {
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
 
-@keyframes pulse-glow {
-
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-    transform: scale(1);
-  }
-
-  50% {
-    box-shadow: 0 0 40px rgba(16, 185, 129, 0.8);
-    transform: scale(1.02);
-  }
+/* Professional Grid Lines */
+.nexus-grid {
+  background-image: linear-gradient(hsl(var(--nexus-border) / 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--nexus-border) / 0.3) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
-/* Premium Gradients */
-.gradient-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.gradient-success {
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-}
-
-.gradient-warning {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.gradient-info {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+/* Smooth Animations */
+.nexus-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: hsl(var(--nexus-surface));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(147, 51, 234, 0.6));
+  background: hsl(var(--nexus-border));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(147, 51, 234, 0.8));
+  background: hsl(var(--nexus-muted));
 }
 
 /* Loading States */
-.loading-shimmer {
-  background: linear-gradient(90deg,
-      rgba(255, 255, 255, 0.05) 25%,
-      rgba(255, 255, 255, 0.1) 50%,
-      rgba(255, 255, 255, 0.05) 75%);
+.shimmer {
+  background: linear-gradient(90deg, rgb(20, 20, 20) 25%, rgb(40, 40, 40) 50%, rgb(20, 20, 20) 75%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -226,64 +467,101 @@
   0% {
     background-position: -200% 0;
   }
-
   100% {
     background-position: 200% 0;
   }
 }
 
-/* Interactive Elements */
-.interactive-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.interactive-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
 /* Status Indicators */
 .status-online {
-  background: linear-gradient(135deg, #10b981, #059669);
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  background-color: rgb(34, 197, 94);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
 }
 
 .status-offline {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+  background-color: rgb(239, 68, 68);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
 }
 
 /* Chart Enhancements */
 .recharts-tooltip-wrapper {
-  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 10px 25px rgb(0 0 0 / 0.15));
 }
 
 .recharts-active-dot {
-  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
+  filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.6));
 }
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
-  .premium-glass {
+  .nexus-glass {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
 
-  .interactive-card:hover {
+  .nexus-card:hover {
     transform: none;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1), inset 0 1px 0 0
+      hsl(var(--nexus-foreground) / 0.05);
   }
 }
 
-/* High Performance Mode */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-
-  .animate-float,
-  .animate-glow,
-  .animate-pulse-glow {
+  .nexus-transition,
+  .shimmer {
     animation: none;
-  }
-
-  .interactive-card {
     transition: none;
   }
+}
+
+/* Focus Styles */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(0, 255, 255), 0 0 0 4px rgb(0, 0, 0);
+}
+
+/* Professional Typography */
+.nexus-heading {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: hsl(var(--nexus-foreground));
+}
+
+.nexus-body {
+  color: hsl(var(--nexus-foreground));
+  line-height: 1.625;
+}
+
+.nexus-caption {
+  font-size: 0.875rem;
+  color: hsl(var(--nexus-muted));
+}
+
+/* Pure Black Theme */
+body {
+  background: #000000;
+  color: #ffffff;
+}
+
+.dark {
+  --background: 0 0 0;
+  --foreground: 255 255 255;
+  --card: 0 0 0;
+  --card-foreground: 255 255 255;
+  --popover: 0 0 0;
+  --popover-foreground: 255 255 255;
+  --primary: 0 255 255;
+  --primary-foreground: 0 0 0;
+  --secondary: 15 15 15;
+  --secondary-foreground: 255 255 255;
+  --muted: 25 25 25;
+  --muted-foreground: 150 150 150;
+  --accent: 15 15 15;
+  --accent-foreground: 255 255 255;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 30 30 30;
+  --input: 30 30 30;
+  --ring: 0 255 255;
 }
