@@ -1,0 +1,28 @@
+{
+    "name": "dex-trading-smart-contracts",
+    "version": "1.0.0",
+    "description": "Smart contracts for DeFi Trading Platform",
+    "scripts": {
+        "compile": "hardhat compile",
+        "deploy": "hardhat run scripts/deploy-all.ts",
+        "deploy:xlayer": "hardhat run scripts/deploy-all.ts --network xlayer",
+        "setup": "hardhat run scripts/setup-contracts.ts",
+        "test-deploy": "hardhat run scripts/test-contracts.ts",
+        "test-deploy:xlayer": "hardhat run scripts/test-contracts.ts --network xlayer",
+        "fix-prices": "hardhat run scripts/fix-prices.ts",
+        "check-wallet": "hardhat run scripts/check-wallet.ts",
+        "clean": "hardhat clean",
+        "node": "hardhat node"
+    },
+    "devDependencies": {
+        "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+        "@typechain/ethers-v6": "^0.5.0",
+        "@typechain/hardhat": "^9.0.0",
+        "hardhat": "^2.19.0",
+        "typescript": "^5.0.0",
+        "ts-node": "^10.9.0"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.0"
+    }
+}
