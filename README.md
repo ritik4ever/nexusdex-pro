@@ -1,4 +1,4 @@
-# DeFi Trading Platform
+# Nexusdex-pro
 
 A production-ready decentralized exchange (DEX) aggregator built for the OKX DEX API Hackathon. This platform provides optimal trading routes across multiple DEXs on X Layer and other EVM-compatible chains.
 
@@ -43,4 +43,5 @@ A production-ready decentralized exchange (DEX) aggregator built for the OKX DEX
 ### Clone the repository
 ```bash
 git clone https://github.com/your-username/dex-trading-platform.git
+
 cd dex-trading-platform
