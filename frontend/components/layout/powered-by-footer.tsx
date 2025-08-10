@@ -51,7 +51,7 @@ export function PoweredByFooter() {
           <div className="text-center mt-6 pt-6 border-t border-white/10">
             <p className="text-gray-400">
               Built on X Layer blockchain • Real-time data from OKX API •
-              <span className="text-cyan-400 ml-1">NexusDEX Pro © 2024</span>
+              <span className="text-cyan-400 ml-1">NexusDEX Pro © 2025</span>
             </p>
           </div>
         </div>
