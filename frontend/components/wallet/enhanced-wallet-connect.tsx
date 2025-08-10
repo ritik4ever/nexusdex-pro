@@ -3,32 +3,22 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Wallet, ChevronDown, Copy, ExternalLink, LogOut, Eye, EyeOff } from "lucide-react"
+import { useAccount, useConnect, useDisconnect, useBalance } from "wagmi"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { EnhancedWalletModal } from "./enhanced-wallet-modal"
-
-interface WalletState {
-  isConnected: boolean
-  address: string | null
-  chainId: number | null
-  balance: {
-    OKB: number
-    ETH: number
-    USDT: number
-  }
-}
 
 export function EnhancedWalletConnect() {
   const [isOpen, setIsOpen] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [showBalance, setShowBalance] = useState(true)
-  const [wallet, setWallet] = useState<WalletState>({
-    isConnected: false,
-    address: null,
-    chainId: null,
-    balance: { OKB: 0, ETH: 0, USDT: 0 },
-  })
-  const [isConnecting, setIsConnecting] = useState(false)
+
+  // Real Wagmi hooks
+  const { address, isConnected, chain } = useAccount()
+  const { connect, connectors, isPending } = useConnect()
+  const { disconnect } = useDisconnect()
+  const { data: balance } = useBalance({ address })
+
   const { toast } = useToast()
 
   const formatAddress = (addr: string) => {
@@ -36,49 +26,64 @@ export function EnhancedWalletConnect() {
   }
 
   const connectWallet = async (walletName: string) => {
-    setIsConnecting(true)
-
-    // Simulate wallet connection with realistic balances
-    setTimeout(() => {
-      let mockAddress: string
-      let mockBalance: { OKB: number; ETH: number; USDT: number }
+    try {
+      // Find the connector based on wallet name
+      let connector
 
       switch (walletName) {
-        case "OKX Wallet":
-          mockAddress = "0x8ba1f109551bD432803012645Hac136c22C501e5"
-          mockBalance = { OKB: 150.5, ETH: 1.75, USDT: 32.33 }
-          break
         case "MetaMask":
-          mockAddress = "0x742d35Cc6634C0532925a3b8D4C9db96590c6C87"
-          mockBalance = { OKB: 89.2, ETH: 2.1, USDT: 156.78 }
+          connector = connectors.find(c => c.name === "MetaMask")
+          break
+        case "WalletConnect":
+          connector = connectors.find(c => c.name === "WalletConnect")
+          break
+        case "Coinbase Wallet":
+          connector = connectors.find(c => c.name === "Coinbase Wallet")
+          break
+        case "OKX Wallet":
+          // Try to connect to OKX Wallet (if available)
+          if (typeof window !== "undefined" && (window as any).okxwallet) {
+            // Use injected connector for OKX
+            connector = connectors.find(c => c.name === "Injected")
+          } else {
+            toast({
+              title: "OKX Wallet Not Found",
+              description: "Please install OKX Wallet extension",
+              variant: "destructive"
+            })
+            return
+          }
           break
         default:
-          mockAddress = "0x742d35Cc6634C0532925a3b8D4C9db96590c6C87"
-          mockBalance = { OKB: 45.8, ETH: 0.95, USDT: 89.45 }
+          connector = connectors[0] // Default to first available
       }
 
-      setWallet({
-        isConnected: true,
-        address: mockAddress,
-        chainId: 196,
-        balance: mockBalance,
-      })
-      setIsConnecting(false)
-      setShowModal(false)
+      if (connector) {
+        await connect({ connector })
+        setShowModal(false)
+        toast({
+          title: "Wallet Connected",
+          description: `Connected to ${walletName}${chain ? ` on ${chain.name}` : ''}`,
+        })
+      } else {
+        toast({
+          title: "Wallet Not Available",
+          description: `${walletName} is not available`,
+          variant: "destructive"
+        })
+      }
+    } catch (error) {
+      console.error("Connection error:", error)
       toast({
-        title: "Wallet Connected",
-        description: `Connected to ${walletName} on X Layer`,
+        title: "Connection Failed",
+        description: `Failed to connect to ${walletName}`,
+        variant: "destructive"
       })
-    }, 2000) // Longer delay to show connecting state
+    }
   }
 
   const disconnectWallet = () => {
-    setWallet({
-      isConnected: false,
-      address: null,
-      chainId: null,
-      balance: { OKB: 0, ETH: 0, USDT: 0 },
-    })
+    disconnect()
     setIsOpen(false)
     toast({
       title: "Wallet Disconnected",
@@ -87,8 +92,8 @@ export function EnhancedWalletConnect() {
   }
 
   const copyAddress = () => {
-    if (wallet.address) {
-      navigator.clipboard.writeText(wallet.address)
+    if (address) {
+      navigator.clipboard.writeText(address)
       toast({
         title: "Address copied",
         description: "Wallet address copied to clipboard",
@@ -96,15 +101,19 @@ export function EnhancedWalletConnect() {
     }
   }
 
-  if (wallet.isConnected && wallet.address) {
+  // Check if we're on the correct network
+  const isCorrectNetwork = chain?.id === 196
+
+  if (isConnected && address) {
     return (
       <div className="relative">
         <Button
           onClick={() => setIsOpen(!isOpen)}
-          className="glass-card border-white/20 hover:border-white/30 text-white bg-white/10 backdrop-blur-md"
+          className={`glass-card border-white/20 hover:border-white/30 text-white bg-white/10 backdrop-blur-md ${!isCorrectNetwork ? 'border-red-400/50 bg-red-500/20' : ''
+            }`}
         >
           <Wallet className="w-4 h-4 mr-2" />
-          {formatAddress(wallet.address)}
+          {formatAddress(address)}
           <ChevronDown className="w-4 h-4 ml-2" />
         </Button>
 
@@ -118,19 +127,29 @@ export function EnhancedWalletConnect() {
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-300">Connected to X Layer</span>
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <span className="text-sm text-gray-300">
+                    Connected to {chain?.name || 'Unknown Network'}
+                  </span>
+                  <div className={`w-2 h-2 rounded-full ${isCorrectNetwork ? 'bg-green-400' : 'bg-red-400'}`}></div>
                 </div>
 
+                {!isCorrectNetwork && (
+                  <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-3">
+                    <p className="text-sm text-red-300">
+                      Please switch to X Layer network for full functionality
+                    </p>
+                  </div>
+                )}
+
                 <div className="flex items-center space-x-2">
-                  <code className="text-sm bg-white/10 px-2 py-1 rounded flex-1">{formatAddress(wallet.address)}</code>
+                  <code className="text-sm bg-white/10 px-2 py-1 rounded flex-1">{formatAddress(address)}</code>
                   <Button size="sm" variant="ghost" onClick={copyAddress} className="p-1 h-auto">
                     <Copy className="w-3 h-3" />
                   </Button>
                   <Button
                     size="sm"
                     variant="ghost"
-                    onClick={() => window.open(`https://www.oklink.com/xlayer/address/${wallet.address}`, "_blank")}
+                    onClick={() => window.open(`https://www.oklink.com/xlayer/address/${address}`, "_blank")}
                     className="p-1 h-auto"
                   >
                     <ExternalLink className="w-3 h-3" />
@@ -151,12 +170,17 @@ export function EnhancedWalletConnect() {
                   </div>
 
                   <div className="space-y-2">
-                    {Object.entries(wallet.balance).map(([token, balance]) => (
-                      <div key={token} className="flex items-center justify-between text-sm">
-                        <span className="text-gray-300">{token}</span>
-                        <span className="text-white font-medium">{showBalance ? balance.toFixed(4) : "****"}</span>
-                      </div>
-                    ))}
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-300">{chain?.nativeCurrency?.symbol || 'ETH'}</span>
+                      <span className="text-white font-medium">
+                        {showBalance
+                          ? balance
+                            ? `${parseFloat(balance.formatted).toFixed(4)}`
+                            : '0.0000'
+                          : '****'
+                        }
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -176,18 +200,18 @@ export function EnhancedWalletConnect() {
     <div className="relative">
       <Button
         onClick={() => setShowModal(true)}
-        disabled={isConnecting}
+        disabled={isPending}
         className="glass-card border-white/20 hover:border-white/30 text-white bg-white/10 backdrop-blur-md"
       >
         <Wallet className="w-4 h-4 mr-2" />
-        {isConnecting ? "Connecting..." : "Connect Wallet"}
+        {isPending ? "Connecting..." : "Connect Wallet"}
       </Button>
 
       <EnhancedWalletModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         onConnect={connectWallet}
-        isConnecting={isConnecting}
+        isConnecting={isPending}
       />
     </div>
   )
